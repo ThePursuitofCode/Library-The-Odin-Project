@@ -1,3 +1,6 @@
+let removeBtns = document.querySelectorAll('#removeBtn')
+let statusBtns = document.querySelectorAll('#statusBtn');
+
 const form = document.querySelector('#addBookForm');
 
 const addBookBtn = document.querySelector('#addBookBtn');
@@ -35,12 +38,6 @@ form.addEventListener('submit', (e) => {
     removeBtn.setAttribute("id", 'removeBtn')
     removeBtn.innerText = "Remove";
 
-    div.appendChild(newTitle);
-    div.appendChild(newAuthor);
-    div.appendChild(newPages);
-    div.appendChild(statusBtn);
-    div.appendChild(removeBtn);
-
     if (submittedIsRead === true) {
       statusBtn.setAttribute("class", "btn completedBtn");
       statusBtn.innerText = "Completed";
@@ -51,36 +48,7 @@ form.addEventListener('submit', (e) => {
         alert("Invalid Entry")
     }
 
-    booksDisplay.appendChild(div);
-
-    overlay.classList.remove('active')
-    formContainer.classList.remove('active')
-})
-
-addBookBtn.addEventListener('click', ()=>{
-    overlay.classList.add('active')
-    formContainer.classList.add('active')
-})
-
-overlay.addEventListener('click', ()=>{
-    overlay.classList.remove('active')
-    formContainer.classList.remove('active')
-})
-
-// Remove buttons and status btns not working properly fix.
-
-let removeBtns = document.querySelectorAll('#removeBtn')
-
-removeBtns.forEach((e)=>{
-    e.addEventListener('click', (node)=>{
-        node.path[1].remove()
-    })
-})
-
-let statusBtns = document.querySelectorAll('#statusBtn');
-
-statusBtns.forEach((e)=>{
-    e.addEventListener('click', (btn)=>{
+    statusBtn.addEventListener('click', (btn)=>{
         let btnText = btn.target.innerText
         if(btnText === "Completed"){
             btn.target.className = "btn notCompletedBtn";
@@ -93,4 +61,30 @@ statusBtns.forEach((e)=>{
             return
         }
     })
+
+    removeBtn.addEventListener('click', (e) =>{
+        e.path[1].remove()
+    })
+
+    div.appendChild(newTitle);
+    div.appendChild(newAuthor);
+    div.appendChild(newPages);
+    div.appendChild(statusBtn);
+    div.appendChild(removeBtn);
+
+    booksDisplay.appendChild(div);
+
+    overlay.classList.remove('active');
+    formContainer.classList.remove('active');
 })
+
+addBookBtn.addEventListener('click', ()=>{
+    overlay.classList.add('active')
+    formContainer.classList.add('active')
+})
+
+overlay.addEventListener('click', ()=>{
+    overlay.classList.remove('active')
+    formContainer.classList.remove('active')
+})
+
